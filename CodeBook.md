@@ -1,20 +1,14 @@
-<p><markdown>
-#Markdown Live Editor#
 Data Dictionary in Getting and Cleaning Data Course Project
-----------------------------------------
-
-Lynn Huang, July 26, 10`5
-
+Lynn Huang, July 26, 2015
 
 This document is written based on the information from the README.txt, and feature_info.txt and features.txt, activity_labels.txt tables bundled from the data from the below link.
 
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
-
 In the features_info.txt, the following info displays
 
+Feature Selection 
 
-**Feature Selection** 
 
 The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals (prefix 't' to denote time) were captured at a constant rate of 50 Hz. Then they were filtered using a median filter and a 3rd order low pass Butterworth filter with a corner frequency of 20 Hz to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ) using another low pass Butterworth filter with a corner frequency of 0.3 Hz. 
 
@@ -43,8 +37,6 @@ fBodyAccMag
 fBodyAccJerkMag
 fBodyGyroMag
 fBodyGyroJerkMag
-
-
 
 The set of variables that were estimated from these signals are: 
 
@@ -76,7 +68,6 @@ tBodyGyroJerkMean
 
 The complete list of variables of each feature vector is available in 'features.txt'
 
--------------------------------------------------------------------------
 
 My version of CodeBook
 
@@ -485,17 +476,12 @@ tBodyGyroJerkMean
 [559] "angle(X,gravityMean)"                 "angle(Y,gravityMean)"                
 [561] "angle(Z,gravityMean)
 
-(Note, I think there is a typo in [555], gravity-->gravityMean)                                                                                                          
-                                                                                                        2.Additional columns are added to the train set and test set, in 
-
-"sxytraindata"  and "sxytestdata"
+(Note, I think there is a typo in [555], gravity-->gravityMean)                                                                                                                                                                                                                                                                        2. Additional columns are added to the train set and test set, in 
+	"sxytraindata"  and "sxytestdata"
 
 Three column names are added infront of 561 columns of "xtraindat" and "xtestdat"
 
-*"activityid"* - activity id (from the activity_labels.txt)     
-        
-*"activityname"* - activity name (from the description of the activitylabels.txt, e.g. WALKING)
-
-*"volunteerid"* - subject identifier (from the subject_train.txt and subject_test.txt), the person who performs the experiments
+"activityid" - activity id (from the activity_labels.txt)             
+ "activityname" - activity name (from the description of the activity_labels.txt, e.g. WALKING)
+"volunteerid" - subject identifier (from the subject_train.txt and subject_test.txt), the person who performs the experiments
                                                                                                                                                                                                                                                                                                                                                                                                                      
-</markdown></p>

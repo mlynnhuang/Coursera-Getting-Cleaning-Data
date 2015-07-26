@@ -1,38 +1,27 @@
-<p><markdown>
-#Markdown Live Editor#
-
 
 Getting and Cleaning Data Course Project
-----------------------------------------
-
 Lynn Huang, July 26, 2015, Version 1
 
-**Requirements from the project description by JHU's Data Science Group**
+Requirements from the project description by JHU's Data Science Group
 
 "The purpose of this project is to demonstrate your ability to collect, work with, and clean a data set. The goal is to prepare tidy data that can be used for later analysis. You will be graded by your peers on a series of yes/no questions related to the project. You will be required to submit:
-
- 1) a tidy data set as described below
-
+ 1) a tidy data set as described below,
  2) a link to a Github repository with your script for performing the analysis, and 
-
-3) a code book that describes the variables, the data, and any transformations or work that you performed to clean up the data called CodeBook.md. 
-
+ 3) a code book that describes the variables, the data, and any transformations or work that you performed to clean up the data called CodeBook.md. 
 You should also include a README.md in the repo with your scripts. This repo explains how all of the scripts work and how they are connected."
-You should create one R script called run_analysis.R that does the following:
 
-Merges the training and the test sets to create one data set.
+You should create one R script called run_analysis.R that does the following. 
 
-Extracts only the measurements on the mean and standard deviation for  each measurement. 
+    Merges the training and the test sets to create one data set.
+    Extracts only the measurements on the mean and standard deviation for each measurement. 
+    Uses descriptive activity names to name the activities in the data set
+    Appropriately labels the data set with descriptive variable names. 
 
-Uses descriptive activity names to name the activities in the data set
+    From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject."
 
-Appropriately labels the data set with descriptive variable names. 
+Here are procedures I created to complete the project
 
-
-   
-**Here are procedures I created to complete the project**
-
- 1.Processing the data obtined from the internet - placing the useful files under R's working direcotry
+1.Processing the data obtined from the internet - placing the useful files under R's working direcotry
 
  A ziped file, getdata_projectfiles_UCI HAR Dataset.zip,
  was downloaded from the below link
@@ -45,35 +34,35 @@ These files are
 
 - 'features.txt': List of all features (can be found under main folder, UCI HAR Dataset).
 
-- 'activity_labels.txt': Links the class labels with their activity name,e.g.the six activities are WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING,LAYING (can be found under main folder, UCI HAR Dataset).
+- 'activity_labels.txt': Links the class labels with their activity name,e.g.the six activities are WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING,                          LAYING (can be found under main folder, UCI HAR Dataset).
 
 - 'X_train.txt': Training set (can be found under subfolder, train).
 
 - 'y_train.txt': Training labels (can be found under subfolder, train).
 
-- 'subject_train.txt': Each row (an id ) identifies a subject (a volunteer) who performed the activity for each window sample. 21 ids (70% of 30 volunteers) are in table (can be found under subfolder, train)
+- 'subject_train.txt': Each row (an id ) identifies a subject (a volunteer) who performed the activity for each window sample. 21 ids (70% of 30 volunteers) are in                            table (can be found under subfolder, train)
 
 - 'X_test.txt': Test set (can be found under subfolder, test).
 
 - 'y_test.txt': Test labels (can be found under subfolder, test).
 
-- 'subject_test.txt': Each row (an id) identifies a subject (a volunteer) who performed the activity for each window sample. 9 ids (30% of 30 volunteers) are in table (can be found under subfolder, test).
+- 'subject_test.txt': Each row (an id) identifies a subject (a volunteer) who performed the activity for each window sample. 9 ids (30% of 30 volunteers) are in                          table (can be found under subfolder, test).
 
-2.Read in the files to R environment
+2. Read in the files to R environment
 	 
-	*Original Files			 R dataset
-	"features.txt" --> 		featuredat
-         "activity_labels.txt"-->	actlabeldat
-	"X_train.txt"-->		        xtraindat
-    	'y_train.txt'"-->		        ytraindat
-	"subject_train.txt"-->		subjecttraindat
-	"X_test.txt"-->			xtestdat
-	"y_test.txt"-->			ytestdat
-	"subject_test.txt"-->		subjecttestdat*
+	Original Files			 R dataset
 
-3.Generate complete, descriptive, datasets for both train and test.
+	'features.txt' --> 		featuredat
+ 	'activity_labels.txt'-->	actlabeldat
+	'X_train.txt'-->		xtraindat
+	'y_train.txt'-->		ytraindat
+	'subject_train.txt'-->		subjecttraindat
+	'X_test.txt'-->			xtestdat
+	'y_test.txt'-->			ytestdat
+	'subject_test.txt'-->		subjecttestdat
+
+3. Generate complete, descriptive, datasets for both train and test.
 The procedure is the same.  So I will use train set in the example
-
 	1) Add descriptive column names to train set (xtraindat).  The 561 column names are extracted(copied) from the features table (featuredat), using commonad
 		names(xtraindat)<-featuredat[,2]
 	2) Add the activity labels in train (ytraindat,7352 objects) to the train set(xtraindat 7352 objects), using column binding in R, e.g.
@@ -83,19 +72,15 @@ The procedure is the same.  So I will use train set in the example
 		sxytraindata<-cbind(xytraindata,subjecttraindat[, 1])
 	5) Add a column name to the newly added column, volunteerid
 	
-A complete/updated training set was created for train dataset, namely, sxytraindata.  A test dataset, namely, sxytestdata, was created using the same steps.
+	A complete/updated training set was created for train dataset, namely, sxytraindata.  A test dataset, namely, sxytestdata, was created using the same steps.
 
-4.Generate a complete dataset combining train set and test set uing row binding in R, e.g.
+4. Generate a complete dataset combining train set and test set uing row binding in R, e.g.
 	alldata<-rbind(sxytraindata,sxytestdata)
 
-5.For extracting the meansurements on the mean and standard deviation for each measurement, I interpret that only those columns containing "mean()" and "std()", I 
-   exclude the columns containing "meanFreq" since those are related to the average of the frequencies (not the activity related measurements).  So I use "-contains
-
-("meanFreq",ignore.case=FALSE)" in the selection of the subset.
+5. For extracting the meansurements on the mean and standard deviation for each measurement, I interpret that only those columns containing "mean()" and "std()", I 
+   exclude the columns containing "meanFreq" since those are related to the average of the frequencies (not the activity related measurements).  So I use "-contains("meanFreq",ignore.case=FALSE)" in the selection of the subset.
 	
-6.Overal, I am not familiar with the naming conventions in the specific area of research, so I have decided not to change the column names which I extracted from the 
-
-features.txt table.  Some string manipulation can be done if one prefers to do so.  As a result, the columns I have had for the dataset generated in step 5 is
+6. Overal, I am not familiar with the naming conventions in the specific area of research, so I have decided not to change the column names which I extracted from the features.txt table.  Some string manipulation can be done if one prefers to do so.  As a result, the columns I have had for the dataset generated in step 5 is
 
  [1] "activityid"                  "activityname"               
  [3] "volunteerid"                 "tBodyAcc-mean()-X"          
@@ -133,9 +118,7 @@ features.txt table.  Some string manipulation can be done if one prefers to do s
 [67] "fBodyBodyAccJerkMag-std()"   "fBodyBodyGyroMag-std()"     
 [69] "fBodyBodyGyroJerkMag-std()" 
 
-7.Generate the final set of data to get the average value for meansurements for each activity performed by each volunteer.
+7. Generate the final set of data to get the average value for meansurements for each activity performed by each volunteer.
 8. Create a table, TidyDataSet.txt extension and store in the working directory.  
    
 
-
-</markdown></p>
